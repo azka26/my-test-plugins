@@ -41,9 +41,9 @@ runs:
     
     - name: Build and Run
       run: 
-        dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj \
-          --mode=${{ inputs.mode }} \
-          --frontend-path=${{ inputs.frontend-path }} \
-          --backend-path=${{ inputs.backend-path }} \
+        dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj
+          --mode=${{ inputs.mode }}
+          --frontend-path=${{ inputs.frontend-path }}
+          --backend-path=${{ inputs.backend-path }}
           --test-path=${{ inputs.test-path }}
       shell: bash
