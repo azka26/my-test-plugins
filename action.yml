@@ -21,10 +21,12 @@ runs:
       run: pwd
       shell: bash
 
-    # - name: Restore dependencies
-    #   run: dotnet restore
-    #   shell: bash
+    - name: Restore dependencies
+      working-directory: ${{ github.action_path }}
+      run: dotnet restore
+      shell: bash
     
-    # - name: Build and Run
-    #   run: dotnet run --project ./my-test-plugins.csproj ${{ inputs.input-param }}
-    #   shell: bash
+    - name: Build and Run
+      working-directory: ${{ github.action_path }}
+      run: dotnet run --project ./my-test-plugins.csproj ${{ inputs.input-param }}
+      shell: bash
