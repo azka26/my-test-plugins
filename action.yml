@@ -18,7 +18,7 @@ runs:
         dotnet-version: '8.0.x'
     
     - name: Get Current Directory
-      run: echo pwd
+      run: pwd
       shell: bash
 
     # - name: Restore dependencies
