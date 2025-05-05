@@ -17,6 +17,8 @@ namespace GitHubActionExample
             
             foreach (var arg in argsSplit)
             {
+                Console.WriteLine($"Processing argument: {arg}");
+                
                 var parameters = arg.Split("=", StringSplitOptions.None);
                 var parameterName = arg[0].ToString().Trim().ToLower();
                 var parameterValues = new List<string>();
