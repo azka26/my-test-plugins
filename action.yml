@@ -1,0 +1,26 @@
+name: 'Custom C# Action'
+description: 'GitHub Action plugin menggunakan C#'
+author: 'Your Name'
+inputs:
+  input-param:
+    description: 'Parameter input untuk action'
+    required: true
+outputs:
+  result:
+    description: 'Output dari action'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+      shell: bash
+
+    - name: Build and Run
+      run: dotnet run --project my-test-plugins.csproj ${{ inputs.input-param }}
+      shell: bash
