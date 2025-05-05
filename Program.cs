@@ -7,13 +7,14 @@ namespace GitHubActionExample
     {
         static void Main(string[] args)
         {
-            var argsString = string.Join(" ", args);
-            var argsSplit = argsString.Split("--", StringSplitOptions.RemoveEmptyEntries);
-            foreach (var arg in argsSplit)
-            {
-                var parameter = arg.Split("=", StringSplitOptions.RemoveEmptyEntries);
-                Console.WriteLine($"Arg: {parameter[0]}, Value: {parameter[1]}");
-            }
+            var buildParameter = new BuildParameter(args);
+            Console.WriteLine($"Parameter {nameof(buildParameter.Mode)}: {buildParameter.Mode}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.FrontendPath)}: {buildParameter.FrontendPath}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.BackendPath)}: {buildParameter.BackendPath}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.TestPath)}: {buildParameter.TestPath}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.BackendAppsettingsTransform)}: {buildParameter.BackendAppsettingsTransform}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.TestAppsettingsTransform)}: {buildParameter.TestAppsettingsTransform}");
+            Console.WriteLine($"Parameter {nameof(buildParameter.EnvTransform)}: {buildParameter.EnvTransform}");
 
             // Run a bash command
             Console.WriteLine("Executing bash command...");

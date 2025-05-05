@@ -3,25 +3,37 @@ description: 'GitHub Action plugin menggunakan C#'
 author: 'Your Name'
 inputs:
   mode:
-    description: 'Parameter input untuk action'
+    description: 'Mode should be deploy or test'
     required: true
     type: string
   frontend-path:
-    description: 'Path ke frontend'
+    description: 'Path to frontend'
     required: false
     type: string
   backend-path:
-    description: 'Path ke backend'
+    description: 'Path to backend'
     required: false
     type: string
   test-path:
-    description: 'Path ke test'
+    description: 'Path to test'
+    required: false
+    type: string
+  backend-appsettings-transform:
+    description: 'Transform appsettings.json backend'
+    required: false
+    type: string
+  test-appsettings-transform:
+    description: 'Transform appsettings.json test'
+    required: false
+    type: string
+  env-transform:
+    description: 'Transform environment variables frontend'
     required: false
     type: string
 
 outputs:
   result:
-    description: 'Output dari action'
+    description: 'Output from action'
 
 runs:
   using: 'composite'
@@ -31,10 +43,6 @@ runs:
       with:
         dotnet-version: '8.0.x'
     
-    - name: Get Current Directory
-      run: pwd
-      shell: bash
-
     - name: Restore dependencies
       run: dotnet restore ${{ github.action_path }}/my-test-plugins.csproj
       shell: bash
@@ -46,4 +54,7 @@ runs:
           --frontend-path=${{ inputs.frontend-path }}
           --backend-path=${{ inputs.backend-path }}
           --test-path=${{ inputs.test-path }}
+          --backend-appsettings-transform=${{ inputs.backend-appsettings-transform }}
+          --test-appsettings-transform=${{ inputs.test-appsettings-transform }}
+          --env-transform=${{ inputs.env-transform }}
       shell: bash
