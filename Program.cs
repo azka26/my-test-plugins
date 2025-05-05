@@ -14,6 +14,8 @@ namespace GitHubActionExample
             {
                 Console.WriteLine("Tidak ada input yang diberikan.");
             }
+            Console.WriteLine("CURRENT DIRECTORY : " + Directory.GetCurrentDirectory());
+            Console.WriteLine("GitHub Action selesai.");
         }
     }
 }
