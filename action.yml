@@ -22,5 +22,5 @@ runs:
       shell: bash
 
     - name: Build and Run
-      run: dotnet run --project my-test-plugins.csproj ${{ inputs.input-param }}
+      run: dotnet run --project ./my-test-plugins.csproj ${{ inputs.input-param }}
       shell: bash
