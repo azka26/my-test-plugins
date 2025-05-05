@@ -20,7 +20,7 @@ namespace GitHubActionExample
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = "-c \"echo 'Hello from Bash'\"",
+                Arguments = "-c \"dotnet --version\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true

@@ -2,9 +2,23 @@ name: 'Custom C# Action'
 description: 'GitHub Action plugin menggunakan C#'
 author: 'Your Name'
 inputs:
-  input-param:
+  mode:
     description: 'Parameter input untuk action'
     required: true
+    type: string
+  frontend-path:
+    description: 'Path ke frontend'
+    required: false
+    type: string
+  backend-path:
+    description: 'Path ke backend'
+    required: false
+    type: string
+  test-path:
+    description: 'Path ke test'
+    required: false
+    type: string
+
 outputs:
   result:
     description: 'Output dari action'
@@ -26,5 +40,10 @@ runs:
       shell: bash
     
     - name: Build and Run
-      run: dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj ${{ inputs.input-param }}
+      run: 
+        dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj \
+          --mode=${{ inputs.mode }} \
+          --frontend-path=${{ inputs.frontend-path }} \
+          --backend-path=${{ inputs.backend-path }} \
+          --test-path=${{ inputs.test-path }}
       shell: bash
