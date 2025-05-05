@@ -21,6 +21,10 @@ runs:
       run: dotnet restore
       shell: bash
 
+    - name: Get Current Directory
+      run: echo pwd
+      shell: bash
+
     - name: Build and Run
       run: dotnet run --project ./my-test-plugins.csproj ${{ inputs.input-param }}
       shell: bash
