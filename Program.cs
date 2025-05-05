@@ -7,13 +7,12 @@ namespace GitHubActionExample
     {
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            var argsString = string.Join(" ", args);
+            var argsSplit = argsString.Split("--", StringSplitOptions.RemoveEmptyEntries);
+            foreach (var arg in argsSplit)
             {
-                Console.WriteLine($"GitHub Action menerima input: {args[0]}");
-            }
-            else
-            {
-                Console.WriteLine("Tidak ada input yang diberikan.");
+                var parameter = arg.Split("=", StringSplitOptions.RemoveEmptyEntries);
+                Console.WriteLine($"Arg: {parameter[0]}, Value: {parameter[1]}");
             }
 
             // Run a bash command
