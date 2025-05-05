@@ -41,6 +41,7 @@ namespace GitHubActionExample
             {
                 Console.WriteLine($"Error executing bash command: {ex.Message}");
             }
+            throw new Exception("This is a test exception to simulate a failure in the GitHub Action.");
             Console.WriteLine("CURRENT DIRECTORY : " + Directory.GetCurrentDirectory());
             Console.WriteLine("GitHub Action selesai.");
         }
