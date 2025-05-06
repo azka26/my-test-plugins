@@ -53,7 +53,7 @@ runs:
           --mode=${{ inputs.mode }}
           --frontend-path=${{ inputs.frontend-path }}
           --backend-path=${{ inputs.backend-path }}
-          --test-path=${{ join(inputs.test-path, ' ') }}
+          --test-path=${{ join(inputs.test-path, '\n') }}
           --backend-appsettings-transform=${{ inputs.backend-appsettings-transform }}
           --test-appsettings-transform=${{ inputs.test-appsettings-transform }}
           --env-transform=${{ inputs.env-transform }}
