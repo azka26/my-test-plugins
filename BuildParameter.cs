@@ -31,7 +31,6 @@ namespace GitHubActionExample
                     parameterValues.Add(parameters[i]!);
                 }
                 var parameterValue = string.Join("=", parameterValues);
-
                 if (parameterName == "mode")
                 {
                     Mode = parameterValue;

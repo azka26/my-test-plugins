@@ -5,6 +5,52 @@ namespace GitHubActionExample
 {
     class Program
     {
+        static bool RunProcess(string fileName, string arguments, string workingDirectory, out string output, out string error)
+        {
+            Process process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = fileName,
+                    Arguments = arguments,
+                    WorkingDirectory = workingDirectory,
+                    RedirectStandardOutput = true, // Redirect output to read it
+                    RedirectStandardError = true,  // Redirect error output
+                    UseShellExecute = false,       // Required for redirection
+                    CreateNoWindow = true          // Run without creating a console window
+                }
+            };
+
+            process.Start();
+            output = process.StandardOutput.ReadToEnd();
+            error = process.StandardError.ReadToEnd();
+            
+            process.WaitForExit();
+            if (string.IsNullOrEmpty(error))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // static bool RunDotnetRestore(BuildParameter parameter)
+        // {
+        //     if (string.IsNullOrEmpty(parameter.BackendPath)){
+        //         return true;
+        //     }
+
+
+
+        //     var pathBackend = parameter.BackendPath;
+        //     var path = Path.Combine(Directory.GetCurrentDirectory(), parameter.FrontendPath ?? parameter.BackendPath);
+
+        //     string workingDirectory = buildParameter.FrontendPath ?? buildParameter.BackendPath;
+        //     string arguments = "restore";
+
+        //     return RunProcess("dotnet", arguments, workingDirectory, out output, out error);
+        // }
+
         static void RunTest(BuildParameter buildParameter)
         {
             if (string.IsNullOrWhiteSpace(buildParameter.TestPath))
@@ -30,27 +76,33 @@ namespace GitHubActionExample
 
         static void Main(string[] args)
         {
-            var buildParameter = new BuildParameter(args);
-            Console.WriteLine($"Parameter {nameof(buildParameter.Mode)}: {buildParameter.Mode}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.FrontendPath)}: {buildParameter.FrontendPath}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.BackendPath)}: {buildParameter.BackendPath}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.TestPath)}: {buildParameter.TestPath}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.BackendAppsettingsTransform)}: {buildParameter.BackendAppsettingsTransform}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.TestAppsettingsTransform)}: {buildParameter.TestAppsettingsTransform}");
-            Console.WriteLine($"Parameter {nameof(buildParameter.EnvTransform)}: {buildParameter.EnvTransform}");
+            var argsString = string.Join(" ", args);
+            Console.WriteLine($"Arguments: {argsString}");
 
-            if (buildParameter.Mode == "test")
-            {
-                RunTest(buildParameter);
-            }
-            else if (buildParameter.Mode == "build")
-            {
-                RunBuild(buildParameter);
-            }
-            else
-            {
-                throw new Exception($"Unknown mode: {buildParameter.Mode}");
-            }
+            // var stringValue = "\"ConnectionStrings.default\":\"datavaluefortransformer,asdasdasd;asdasd.,asdasd\",\"valueNeedTransform\":\"test with space\",\"otherValue\":\"test test testx\"";
+            // var jsonFormat = $"{{{stringValue}}}";
+            // var jsonParse = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonFormat);
+            // var buildParameter = new BuildParameter(args);
+            // Console.WriteLine($"Parameter {nameof(buildParameter.Mode)}: {buildParameter.Mode}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.FrontendPath)}: {buildParameter.FrontendPath}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.BackendPath)}: {buildParameter.BackendPath}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.TestPath)}: {buildParameter.TestPath}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.BackendAppsettingsTransform)}: {buildParameter.BackendAppsettingsTransform}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.TestAppsettingsTransform)}: {buildParameter.TestAppsettingsTransform}");
+            // Console.WriteLine($"Parameter {nameof(buildParameter.EnvTransform)}: {buildParameter.EnvTransform}");
+
+            // if (buildParameter.Mode == "test")
+            // {
+            //     RunTest(buildParameter);
+            // }
+            // else if (buildParameter.Mode == "build")
+            // {
+            //     RunBuild(buildParameter);
+            // }
+            // else
+            // {
+            //     throw new Exception($"Unknown mode: {buildParameter.Mode}");
+            // }
 
             // // Run a bash command
             // Console.WriteLine("Executing bash command...");
