@@ -48,13 +48,15 @@ runs:
       shell: bash
     
     - name: Build and Run
-      run: 
-        dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj
-          --mode=${{ inputs.mode }}
-          --frontend-path=${{ inputs.frontend-path }}
-          --backend-path=${{ inputs.backend-path }}
-          --test-path=${{ join(inputs.test-path, '\n') }}
-          --backend-appsettings-transform=${{ inputs.backend-appsettings-transform }}
-          --test-appsettings-transform=${{ inputs.test-appsettings-transform }}
-          --env-transform=${{ inputs.env-transform }}
+      run: |
+        TEST-PATH=$(echo "${{ inputs.test-path }}" | tr '\n' ' ')
+
+        dotnet run --project ${{ github.action_path }}/my-test-plugins.csproj \
+          --mode=${{ inputs.mode }} \
+          --frontend-path=${{ inputs.frontend-path }} \
+          --backend-path=${{ inputs.backend-path }} \
+          --test-path="$TEST-PATH" \
+          --backend-appsettings-transform=${{ inputs.backend-appsettings-transform }} \
+          --test-appsettings-transform=${{ inputs.test-appsettings-transform }} \
+          --env-transform=${{ inputs.env-transform }} \
       shell: bash
